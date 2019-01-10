@@ -321,8 +321,8 @@ void dmploop() {
             mpu.dmpGetGravity(&gravity, &q);
             mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
             yaw = ypr[0]*57.3;
-            pitch = ypr[1]*57.3;
-            roll = ypr[2]*57.3;
+            pitch = ypr[2]*57.3;
+            roll = ypr[1]*57.3;
             // Serial.print("ypr\t");
             // Serial.print(ypr[0] * 180/M_PI);
             // Serial.print("\t");
