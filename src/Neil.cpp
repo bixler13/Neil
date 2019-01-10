@@ -4,6 +4,7 @@
 #include "sensor.h"
 #include "actuator.h"
 #include "controller.h"
+#include "sensordmp.h"
 
 
 float dt, roll, pitch, yaw;
@@ -13,6 +14,7 @@ float front_servo_angle,right_servo_angle, rear_servo_angle, left_servo_angle;
 void setup() {
   IMU_Setup();
   servo_setup();
+  dmpsetup();
   Serial.begin(115200);
   delay(500);
 }
@@ -21,18 +23,19 @@ void loop() {
   float StartTime = micros(); //start the timer to calculate looptime
 
 
-  IMU_Read();
-  comp_filter();
+  //IMU_Read();
+  //comp_filter();
+  dmploop();
   controller();
   servo_move();
 
-  //Serial.print(dt,3);
-  //Serial.print(" , ");
-  //Serial.print(roll);
-  // Serial.print(" , ");
+  Serial.print(dt,3);
+  Serial.print(" , ");
+  Serial.print(yaw);
+  Serial.print(" , ");
   Serial.print(pitch);
   Serial.print(" , ");
-  Serial.println(right_servo_angle);
+  Serial.println(roll);
 
   float EndTime = micros();
   dt = (EndTime - StartTime); //calculate the time between gyro reading values for the complemenatary filter
