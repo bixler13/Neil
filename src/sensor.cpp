@@ -50,26 +50,3 @@ void comp_filter(){
   roll =  .98 * gyroroll + .02 * accroll;
   yaw = gyroyaw;
 }
-
-void DMP_setup(){
-  Wire.begin();
-  Wire.setClock(400000);
-  //Fastwire::setup(400, true);
-  mpu.initialize();
-  pinMode(INTERRUPT_PIN, INPUT);
-  devStatus = mpu.dmpInitialize();
-  // supply your own gyro offsets here, scaled for min sensitivity
-  mpu.setXGyroOffset(220);
-  mpu.setYGyroOffset(76);
-  mpu.setZGyroOffset(-85);
-  mpu.setZAccelOffset(1788); // 1688 factory default for my test chip
-  mpu.setDMPEnabled(true);
-  attachInterrupt(digitalPinToInterrupt(INTERRUPT_PIN), dmpDataReady, RISING);
-  mpuIntStatus = mpu.getIntStatus();
-  dmpReady = true;
-  packetSize = mpu.dmpGetFIFOPacketSize();
-}
-
-void DMP(){
-
-}

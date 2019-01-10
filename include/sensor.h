@@ -4,9 +4,5 @@
     void IMU_Setup();
     void IMU_Read();
     void comp_filter();
-    void DMP_setup();
-    void DMP();
-
-
 
 #endif
