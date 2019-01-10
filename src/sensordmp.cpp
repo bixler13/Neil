@@ -187,11 +187,11 @@ void dmpsetup() {
     Serial.println(F("Testing device connections..."));
     Serial.println(mpu.testConnection() ? F("MPU6050 connection successful") : F("MPU6050 connection failed"));
 
-    // wait for ready
-    Serial.println(F("\nSend any character to begin DMP programming and demo: "));
-    while (Serial.available() && Serial.read()); // empty buffer
-    while (!Serial.available());                 // wait for data
-    while (Serial.available() && Serial.read()); // empty buffer again
+    // // wait for ready
+    // Serial.println(F("\nSend any character to begin DMP programming and demo: "));
+    // while (Serial.available() && Serial.read()); // empty buffer
+    // while (!Serial.available());                 // wait for data
+    // while (Serial.available() && Serial.read()); // empty buffer again
 
     // load and configure the DMP
     Serial.println(F("Initializing DMP..."));
@@ -320,9 +320,9 @@ void dmploop() {
             mpu.dmpGetQuaternion(&q, fifoBuffer);
             mpu.dmpGetGravity(&gravity, &q);
             mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
-            yaw = ypr[0];
-            pitch = ypr[1];
-            roll = ypr[2];
+            yaw = ypr[0]*57.3;
+            pitch = ypr[1]*57.3;
+            roll = ypr[2]*57.3;
             // Serial.print("ypr\t");
             // Serial.print(ypr[0] * 180/M_PI);
             // Serial.print("\t");
