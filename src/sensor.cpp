@@ -2,8 +2,6 @@
 #include <arduino.h>
 #include "sensor.h"
 #include "Neil.h"
-#include "MPU6050.h"
-#include "I2Cdev.h"
 
 
 float AccX, AccY, AccZ, Temp, GyroX, GyroY, GyroZ;
