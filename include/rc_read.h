@@ -7,6 +7,4 @@ void rc_read_ppm();
 void rc_read_ppm2();
 void find_mode();
 
-
-
 #endif

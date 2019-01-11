@@ -13,11 +13,11 @@
 
 #define PPM_pin 3
 
-#define pitch_p .5
+#define pitch_p 1
 #define pitch_i 0
 #define pitch_d 0
 
-#define roll_p .5
+#define roll_p 1
 #define roll_i 0
 #define roll_d 0
 

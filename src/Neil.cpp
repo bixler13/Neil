@@ -9,7 +9,7 @@
 #define USE_DMP
 
 
-//#define OUTPUT_IMU
+#define OUTPUT_IMU
 //#define OUTPUT_SERVO
 //#define OUTPUT_INPUT
 
@@ -25,7 +25,6 @@ float throttle_input, pitch_input, roll_input, yaw_input, mode;
   #ifdef USE_DMP
     #include "sensor_dmp.h"
   #endif
-
 
 void setup() {
 
@@ -82,7 +81,7 @@ void loop() {
     Serial.print(" , ");
     Serial.print(yaw);
     Serial.print(" , ");
-    Serial.println(dt);
+    Serial.println(dt,3);
   #endif
 
   #ifdef OUTPUT_SERVO
