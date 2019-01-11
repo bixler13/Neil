@@ -6,9 +6,12 @@
 #define rear_servo_pin   6
 #define left_servo_pin   7
 
+#define PPM_pin 3
+
 extern float dt, roll, pitch, yaw;
 extern float front_servo_angle, right_servo_angle, rear_servo_angle, left_servo_angle;
 
+extern float throttle_input, pitch_input, roll_input, yaw_input, mode_input, mode;
 
 
 #endif

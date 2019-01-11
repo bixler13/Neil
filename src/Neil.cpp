@@ -3,12 +3,15 @@
 #include "Neil.h"
 #include "actuator.h"
 #include "controller.h"
+#include "rc_read.h"
 
 //#define USE_RAW
 #define USE_DMP
 
 float dt, roll, pitch, yaw;
 float front_servo_angle,right_servo_angle, rear_servo_angle, left_servo_angle;
+
+float throttle_input, pitch_input, roll_input, yaw_input, mode;
 
   #ifdef USE_RAW
     #include "sensor_raw.h"
@@ -29,6 +32,7 @@ void setup() {
     dmpsetup();
   #endif
 
+  rc_read_setup_ppm();
   servo_setup();
   Serial.begin(115200);
   delay(500);
@@ -46,16 +50,20 @@ void loop() {
     dmploop();
   #endif
 
+  rc_read_ppm();
+  find_mode();
   controller();
   servo_move();
 
-  Serial.print(front_servo_angle);
+  Serial.print(mode);
   Serial.print(" , ");
-  Serial.print(right_servo_angle);
+  Serial.print(throttle_input);
   Serial.print(" , ");
-  Serial.print(rear_servo_angle);
+  Serial.print(pitch_input);
   Serial.print(" , ");
-  Serial.println(left_servo_angle);
+  Serial.print(roll_input);
+  Serial.print(" , ");
+  Serial.println(yaw_input);
 
   float EndTime = micros();
   dt = (EndTime - StartTime); //calculate the time between gyro reading values for the complemenatary filter
