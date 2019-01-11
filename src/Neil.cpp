@@ -4,8 +4,8 @@
 #include "actuator.h"
 #include "controller.h"
 
-#define USE_RAW
-//#define USE_DMP
+//#define USE_RAW
+#define USE_DMP
 
 float dt, roll, pitch, yaw;
 float front_servo_angle,right_servo_angle, rear_servo_angle, left_servo_angle;
@@ -49,13 +49,13 @@ void loop() {
   controller();
   servo_move();
 
-  Serial.print(dt,3);
+  Serial.print(front_servo_angle);
   Serial.print(" , ");
-  Serial.print(yaw);
+  Serial.print(right_servo_angle);
   Serial.print(" , ");
-  Serial.print(pitch);
+  Serial.print(rear_servo_angle);
   Serial.print(" , ");
-  Serial.println(roll);
+  Serial.println(left_servo_angle);
 
   float EndTime = micros();
   dt = (EndTime - StartTime); //calculate the time between gyro reading values for the complemenatary filter
