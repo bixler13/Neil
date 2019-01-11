@@ -8,6 +8,18 @@
 
 #define PPM_pin 3
 
+#define pitch_p .5
+#define pitch_i 0
+#define pitch_d 0
+
+#define roll_p .5
+#define roll_i 0
+#define roll_d 0
+
+#define yaw_p .5
+#define yaw_i 0
+#define yaw_d 0
+
 extern float dt, roll, pitch, yaw;
 extern float front_servo_angle, right_servo_angle, rear_servo_angle, left_servo_angle;
 
