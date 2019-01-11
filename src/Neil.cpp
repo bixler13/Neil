@@ -1,21 +1,35 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include "Neil.h"
-#include "sensor_raw.h"
-#include "sensor_dmp.h"
 #include "actuator.h"
 #include "controller.h"
 
-
+#define USE_RAW
+//#define USE_DMP
 
 float dt, roll, pitch, yaw;
 float front_servo_angle,right_servo_angle, rear_servo_angle, left_servo_angle;
 
+  #ifdef USE_RAW
+    #include "sensor_raw.h"
+  #endif
+
+  #ifdef USE_DMP
+    #include "sensor_dmp.h"
+  #endif
+
 
 void setup() {
-  //IMU_Setup();
+
+  #ifdef USE_RAW
+    IMU_Setup();
+  #endif
+
+  #ifdef USE_DMP
+    dmpsetup();
+  #endif
+
   servo_setup();
-  dmpsetup();
   Serial.begin(115200);
   delay(500);
 }
@@ -23,10 +37,15 @@ void setup() {
 void loop() {
   float StartTime = micros(); //start the timer to calculate looptime
 
+  #ifdef USE_RAW
+    IMU_Read();
+    comp_filter();
+  #endif
 
-  //IMU_Read();
-  //comp_filter();
-  dmploop();
+  #ifdef USE_DMP
+    dmploop();
+  #endif
+
   controller();
   servo_move();
 
