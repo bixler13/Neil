@@ -4,12 +4,23 @@
 #include "functions.h"
 
 float pitch_error, roll_error, yaw_error;
-int pitch_command = 0;
-int roll_command = 0;
-int yaw_command = 0;
+float pitch_command, roll_command, yaw_command;
 
 
 void controller(){
+
+if (mode == 3){
+  pitch_command = mapFloat(pitch_input, -1000, 1000, -25, 25);
+  roll_command = mapFloat(roll_input, -1000, 1000, -25, 25);
+  yaw_command = mapFloat(yaw_input, -1000, 1000, -25, 25);
+}
+
+else {
+  pitch_command = 0;
+  roll_command = 0;
+  yaw_command = 0;
+
+}
 
 //pitch axis
 pitch_error = pitch_command - pitch;
