@@ -8,6 +8,10 @@
 //#define USE_RAW
 #define USE_DMP
 
+//#define OUTPUT_IMU
+//#define OUTPUT_SERVO
+#define OUTPUT_INPUT
+
 float dt, roll, pitch, yaw;
 float front_servo_angle,right_servo_angle, rear_servo_angle, left_servo_angle;
 
@@ -55,6 +59,7 @@ void loop() {
   controller();
   servo_move();
 
+  #ifdef OUTPUT_INPUT
   Serial.print(mode);
   Serial.print(" , ");
   Serial.print(throttle_input);
@@ -64,6 +69,7 @@ void loop() {
   Serial.print(roll_input);
   Serial.print(" , ");
   Serial.println(yaw_input);
+  #endif
 
   float EndTime = micros();
   dt = (EndTime - StartTime); //calculate the time between gyro reading values for the complemenatary filter
