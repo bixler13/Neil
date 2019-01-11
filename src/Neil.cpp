@@ -8,9 +8,10 @@
 //#define USE_RAW
 #define USE_DMP
 
+
 //#define OUTPUT_IMU
 //#define OUTPUT_SERVO
-#define OUTPUT_INPUT
+//#define OUTPUT_INPUT
 
 float dt, roll, pitch, yaw;
 float front_servo_angle,right_servo_angle, rear_servo_angle, left_servo_angle;
@@ -36,9 +37,12 @@ void setup() {
     dmpsetup();
   #endif
 
+  #if defined(OUTPUT_IMU)  || defined(OUTPUT_INPUT) || defined(OUTPUT_SERVO)
+    Serial.begin(115200);
+  #endif
+
   rc_read_setup_ppm();
   servo_setup();
-  Serial.begin(115200);
   delay(500);
 }
 
@@ -53,7 +57,7 @@ void loop() {
   #ifdef USE_DMP
     dmploop();
   #endif
-  
+
   rc_read_ppm();
   find_mode();
   controller();
