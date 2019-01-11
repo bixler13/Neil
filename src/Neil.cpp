@@ -60,15 +60,35 @@ void loop() {
   servo_move();
 
   #ifdef OUTPUT_INPUT
-  Serial.print(mode);
-  Serial.print(" , ");
-  Serial.print(throttle_input);
-  Serial.print(" , ");
-  Serial.print(pitch_input);
-  Serial.print(" , ");
-  Serial.print(roll_input);
-  Serial.print(" , ");
-  Serial.println(yaw_input);
+    Serial.print(mode);
+    Serial.print(" , ");
+    Serial.print(throttle_input);
+    Serial.print(" , ");
+    Serial.print(pitch_input);
+    Serial.print(" , ");
+    Serial.print(roll_input);
+    Serial.print(" , ");
+    Serial.println(yaw_input);
+  #endif
+
+  #ifdef OUTPUT_IMU
+    Serial.print(roll);
+    Serial.print(" , ");
+    Serial.print(pitch);
+    Serial.print(" , ");
+    Serial.print(yaw);
+    Serial.print(" , ");
+    Serial.println(dt);
+  #endif
+
+  #ifdef OUTPUT_SERVO
+    Serial.print(front_servo_angle);
+    Serial.print(" , ");
+    Serial.print(right_servo_angle);
+    Serial.print(" , ");
+    Serial.print(rear_servo_angle);
+    Serial.print(" , ");
+    Serial.println(left_servo_angle);
   #endif
 
   float EndTime = micros();
