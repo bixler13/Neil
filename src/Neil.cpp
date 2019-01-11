@@ -1,10 +1,11 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include "Neil.h"
-#include "sensor.h"
+#include "sensor_raw.h"
+#include "sensor_dmp.h"
 #include "actuator.h"
 #include "controller.h"
-#include "sensordmp.h"
+
 
 
 float dt, roll, pitch, yaw;
@@ -12,7 +13,7 @@ float front_servo_angle,right_servo_angle, rear_servo_angle, left_servo_angle;
 
 
 void setup() {
-  IMU_Setup();
+  //IMU_Setup();
   servo_setup();
   dmpsetup();
   Serial.begin(115200);
