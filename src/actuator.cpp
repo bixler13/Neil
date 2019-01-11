@@ -17,8 +17,8 @@ void servo_setup(){
 }
 
 void servo_move(){
-  servo_front.write(front_servo_angle);
-  servo_right.write(right_servo_angle);
-  servo_rear.write(rear_servo_angle);
-  servo_left.write(left_servo_angle);
+  servo_front.write(front_servo_angle + front_servo_trim);
+  servo_right.write(right_servo_angle + right_servo_trim);
+  servo_rear.write(rear_servo_angle + rear_servo_trim);
+  servo_left.write(left_servo_angle + left_servo_trim);
 }

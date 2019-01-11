@@ -6,6 +6,11 @@
 #define rear_servo_pin   6
 #define left_servo_pin   7
 
+#define front_servo_trim 0
+#define right_servo_trim 0
+#define rear_servo_trim 0
+#define left_servo_trim 0
+
 #define PPM_pin 3
 
 #define pitch_p .5
