@@ -18,6 +18,8 @@ float front_servo_angle,right_servo_angle, rear_servo_angle, left_servo_angle;
 
 float throttle_input, pitch_input, roll_input, yaw_input, mode;
 
+float tpa;
+
   #ifdef USE_RAW
     #include "sensor_raw.h"
   #endif
@@ -81,7 +83,7 @@ void loop() {
     Serial.print(" , ");
     Serial.print(yaw);
     Serial.print(" , ");
-    Serial.println(dt,3);
+    Serial.println(throttle_input,3);
   #endif
 
   #ifdef OUTPUT_SERVO
