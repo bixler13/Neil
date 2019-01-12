@@ -22,8 +22,8 @@
 #define roll_d .1
 
 #define yaw_p .5
-#define yaw_i 0
-#define yaw_d 0
+#define yaw_i 1
+#define yaw_d .1
 
 extern float dt, roll, pitch, yaw;
 extern float front_servo_angle, right_servo_angle, rear_servo_angle, left_servo_angle;
