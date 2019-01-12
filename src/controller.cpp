@@ -3,10 +3,14 @@
 #include "controller.h"
 #include "functions.h"
 
-float pitch_error, roll_error, yaw_error;
+float pitch_error, pitch_error_old, roll_error, roll_error_old, yaw_error, yaw_error_old;
 float pitch_command, roll_command, yaw_command;
 
-float pitch_P, pitch_I, pitch_D;
+float pitch_P, pitch_I, pitch_I_old, pitch_D;
+float roll_P, roll_I, roll_I_old, roll_D;
+float yaw_P, yaw_I, yaw_I_old, yaw_D;
+
+float pitch_servo_angle, roll_servo_angle, yaw_servo_angle;
 
 void controller(){
 
@@ -24,27 +28,39 @@ else {
   yaw_command = 0;
 }
 
-//pitch axis
+///////////////////////////pitch axis///////////////////////////////////
 pitch_error = pitch_command - pitch;
 
-pitch_P = p_pitch * pitch_error;
+pitch_P = pitch_p * pitch_error;
 
-pitch_I = ((pitch_error * dt)+I_pitch_old);
-pitch_I_new = I_pitch_old *i_pitch;
+pitch_I = pitch_i * ((pitch_error * dt) + pitch_I_old);
+pitch_I_old = pitch_I;
 
-pitch_command = pitch_P + pitch_I + pitch_D;
+pitch_D = pitch_d*((pitch_error_old - pitch_error) / dt);
+pitch_error_old = pitch_error;
 
-left_servo_angle = mapFloat(-1 * pitch_command *pitch_p, -45, 45, 20, 150);
-right_servo_angle = mapFloat(pitch_command *pitch_p, -45, 45, 20, 150);
+pitch_servo_angle = pitch_P + pitch_I + pitch_D;
 
+left_servo_angle = mapFloat(-1 * pitch_servo_angle, -45, 45, 20, 150);
+right_servo_angle = mapFloat(pitch_servo_angle, -45, 45, 20, 150);
 
-
-//roll axis
+///////////////////////roll axis////////////////////////////////////
 roll_error = roll_command - roll;
-front_servo_angle = mapFloat(-1 * roll_error *roll_p, -45, 45, 20, 150);
-rear_servo_angle = mapFloat(roll_error *roll_p, -45, 45, 20, 150);
 
-//yaw axis
+roll_P = roll_p * roll_error;
+
+roll_I = roll_i * ((roll_error * dt) + roll_I_old);
+roll_I_old = roll_I;
+
+roll_D = roll_d*((roll_error_old - roll_error) / dt);
+roll_error_old = roll_error;
+
+roll_servo_angle = roll_P + roll_I + roll_D;
+
+front_servo_angle = mapFloat(-1 * roll_servo_angle, -45, 45, 20, 150);
+rear_servo_angle = mapFloat(roll_servo_angle, -45, 45, 20, 150);
+
+//////////////////////yaw axis/////////////////////////////////////
 yaw_error = yaw_command - yaw;
 left_servo_angle = left_servo_angle + yaw_error;
 right_servo_angle = right_servo_angle + yaw_error;
