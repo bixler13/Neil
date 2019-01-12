@@ -95,9 +95,9 @@ right_servo_angle = right_servo_angle + yaw_servo_angle;
 front_servo_angle = front_servo_angle + yaw_servo_angle;
 rear_servo_angle = rear_servo_angle + yaw_servo_angle;
 
-left_servo_angle = constrain(left_servo_angle, 20, 150);
-right_servo_angle = constrain(right_servo_angle, 20, 150);
-front_servo_angle = constrain(front_servo_angle, 20, 150);
-rear_servo_angle = constrain(rear_servo_angle, 20, 150);
+left_servo_angle = constrain(left_servo_angle, 60, 120);
+right_servo_angle = constrain(right_servo_angle, 60, 120);
+front_servo_angle = constrain(front_servo_angle, 60, 120);
+rear_servo_angle = constrain(rear_servo_angle, 60, 120);
 
 }
