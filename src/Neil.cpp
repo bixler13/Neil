@@ -83,7 +83,7 @@ void loop() {
     Serial.print(" , ");
     Serial.print(yaw);
     Serial.print(" , ");
-    Serial.println(throttle_input,3);
+    Serial.println(dt,3);
   #endif
 
   #ifdef OUTPUT_SERVO

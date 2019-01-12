@@ -14,14 +14,14 @@
 #define PPM_pin 3
 
 #define pitch_p .2
-#define pitch_i .2
+#define pitch_i 0
 #define pitch_d 0
 
 #define roll_p .2
-#define roll_i .2
+#define roll_i 0
 #define roll_d 0
 
-#define yaw_p .2
+#define yaw_p .5
 #define yaw_i 0
 #define yaw_d 0
 
