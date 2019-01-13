@@ -1,5 +1,9 @@
 #include "Neil.h"
 #include "sensor_dmp.h"
+int counter = 0;
+
+float yaw_read, yaw_read_old, yaw_rate, rate_val1, rate_val2;
+
 // I2C device class (I2Cdev) demonstration Arduino sketch for MPU6050 class using DMP (MotionApps v2.0)
 // 6/21/2012 by Jeff Rowberg <jeff@rowberg.net>
 // Updates should (hopefully) always be available at https://github.com/jrowberg/i2cdevlib
@@ -199,10 +203,10 @@ void dmpsetup() {
     devStatus = mpu.dmpInitialize();
 
     // supply your own gyro offsets here, scaled for min sensitivity
-    mpu.setXGyroOffset(50);
-    mpu.setYGyroOffset(-230);
-    mpu.setZGyroOffset(-14);
-    mpu.setZAccelOffset(1288); // 1688 factory default for my test chip
+    mpu.setXGyroOffset(-17); //50
+    mpu.setYGyroOffset(134); //-230
+    mpu.setZGyroOffset(63); //-14
+    mpu.setZAccelOffset(1187); // 1288
 
     // make sure it worked (returns 0 if so)
     if (devStatus == 0) {
@@ -308,12 +312,12 @@ void dmploop() {
             // display Euler angles in degrees
             mpu.dmpGetQuaternion(&q, fifoBuffer);
             mpu.dmpGetEuler(euler, &q);
-            Serial.print("euler\t");
-            Serial.print(euler[0] * 180/M_PI);
-            Serial.print("\t");
-            Serial.print(euler[1] * 180/M_PI);
-            Serial.print("\t");
-            Serial.println(euler[2] * 180/M_PI);
+            // Serial.print("euler\t");
+            // Serial.print(euler[0] * 180/M_PI);
+            // Serial.print("\t");
+            // Serial.print(euler[1] * 180/M_PI);
+            // Serial.print("\t");
+            // Serial.println(euler[2] * 180/M_PI);
         #endif
 
         #ifdef OUTPUT_READABLE_YAWPITCHROLL
@@ -321,7 +325,24 @@ void dmploop() {
             mpu.dmpGetQuaternion(&q, fifoBuffer);
             mpu.dmpGetGravity(&gravity, &q);
             mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
-            yaw = ypr[0]*57.3;
+
+             yaw_read = ypr[0]*57.3;
+              yaw_rate = (yaw_read - yaw_read_old)/dt;
+              yaw_read_old = yaw_read;
+              // rate_val1 = 180 - yaw_rate * .5 - .5;
+              // rate_val2 = -180 + yaw_rate * .5 + .5;
+              if (yaw_read >= 170  || yaw_read <= -170){
+                yaw_rate = 0;
+              }
+              yaw = yaw + (yaw_rate * dt);
+//
+            // yaw = ypr[0]*57.3;
+            //  if(yaw >= 179){
+            //   counter = 1;
+            // }
+            //   yaw += 360*counter;
+
+
             pitch = ypr[2]*57.3;
             roll = ypr[1]*57.3;
             // Serial.print("ypr\t");
