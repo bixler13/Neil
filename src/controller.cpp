@@ -24,8 +24,8 @@ if (mode == 3){
 }
 
 else {
-  pitch_command = 0;
-  roll_command = 0;
+  roll_command = 4.5;
+  pitch_command = -1;
   yaw_command = 0;
 }
 
@@ -81,8 +81,14 @@ yaw_error = yaw_command - yaw;
 
 yaw_P = yaw_p * yaw_error;
 
+if (throttle_input >= -700){
 yaw_I = yaw_i * ((yaw_error * dt) + yaw_I_old);
 yaw_I_old = yaw_I;
+}
+else{
+  yaw_I = 0;
+  yaw_I_old = 0;
+}
 
 yaw_D = roll_d*((yaw_error_old - yaw_error) / dt);
 yaw_error_old = yaw_error;
@@ -95,9 +101,9 @@ right_servo_angle = right_servo_angle + yaw_servo_angle;
 front_servo_angle = front_servo_angle + yaw_servo_angle;
 rear_servo_angle = rear_servo_angle + yaw_servo_angle;
 
-left_servo_angle = constrain(left_servo_angle, 60, 120);
-right_servo_angle = constrain(right_servo_angle, 60, 120);
-front_servo_angle = constrain(front_servo_angle, 60, 120);
-rear_servo_angle = constrain(rear_servo_angle, 60, 120);
+left_servo_angle = constrain(left_servo_angle, 40, 140);
+right_servo_angle = constrain(right_servo_angle, 40, 140);
+front_servo_angle = constrain(front_servo_angle, 40, 140);
+rear_servo_angle = constrain(rear_servo_angle, 40, 140);
 
 }
